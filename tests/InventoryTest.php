@@ -7,7 +7,7 @@
 
     require_once "src/Inventory.php";
 
-    $server = 'mysql:host=localhost;dbname=inventory_test';
+    $server = 'mysql:host=localhost;dbname=inventories_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
@@ -43,7 +43,7 @@
             $result = $test_Inventory->getId();
 
             //Assert
-            $this->assertEquals(true, is_numberic($result));
+            $this->assertEquals(true, is_numeric($result));
         }
 
         function test_save()
@@ -51,12 +51,12 @@
             //Arrange
             $item = 'action figure';
             $test_inventory = new Inventory($item);
-
-            //Act
             $test_inventory->save();
 
+            //Act
+            $result = Inventory::getAll();
+
             //Assert
-            $results = Inventory::getAll();
             $this->assertEquals($test_inventory, $result[0]);
         }
 
